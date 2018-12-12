@@ -1,3 +1,5 @@
+//Client made by Kevin Rademacher
+//Student code 2124312
 import { Component } from '@angular/core';
 
 @Component({

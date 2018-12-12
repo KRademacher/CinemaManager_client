@@ -1,11 +1,10 @@
+//Client made by Kevin Rademacher
+//Student code 2124312
 
-//Install express server
 const express = require('express');
 const path = require('path');
-
 const app = express();
 
-// Serve only the static files form the dist directory
 app.use(express.static(__dirname + '/dist/CinemaManager'));
 
 app.get('/*', function(req,res) {
