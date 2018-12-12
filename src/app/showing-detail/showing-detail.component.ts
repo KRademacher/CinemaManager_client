@@ -23,7 +23,7 @@ export class ShowingDetailComponent implements OnInit {
 
 	@Input() showing: Showing;
 
-	private minDate = new Date(Date.now());
+	minDate = new Date(Date.now());
 
   constructor(
   	private cinemaService: CinemaService, 

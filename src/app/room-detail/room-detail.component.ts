@@ -15,13 +15,13 @@ export class RoomDetailComponent implements OnInit {
 
 	@Input() room: Room;
 
-  private roomForm = new FormGroup({
+  roomForm = new FormGroup({
     number: new FormControl('', Validators.required),
     type: new FormControl('', Validators.required),
     capacity: new FormControl('', Validators.required)
   });
 
-	private roomTypes = ['Standard', '3D', 'IMAX', 'IMAX 3D'];
+	roomTypes = ['Standard', '3D', 'IMAX', 'IMAX 3D'];
 
   constructor(
   	private cinemaService: CinemaService, 
