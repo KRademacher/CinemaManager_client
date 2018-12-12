@@ -16,7 +16,7 @@ export class ShowingAddComponent implements OnInit {
 
 	@Input() showing: Showing = new Showing();
 
-  private minDate = new Date(Date.now());
+  minDate = new Date(Date.now());
 
   constructor(
   	private router: Router,
