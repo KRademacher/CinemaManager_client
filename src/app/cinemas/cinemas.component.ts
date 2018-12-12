@@ -49,7 +49,7 @@ export class CinemasComponent implements OnInit {
     this.router.navigate(['cinemas/create']);
   }
 
-  editCinema(id: string) { //Navigate to cinema-detail component.
-    this.router.navigate(['cinema/' + id]);
+  editCinema(name: string) { //Navigate to cinema-detail component.
+    this.router.navigate([`cinemas/${name}`]);
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -13,6 +14,12 @@ import { CinemaService } from '../cinema.service';
   styleUrls: ['./showing-detail.component.css']
 })
 export class ShowingDetailComponent implements OnInit {
+
+  showingForm = new FormGroup({
+    movieTitle: new FormControl('', Validators.required),
+    duration: new FormControl('', Validators.required),
+    startDate: new FormControl('', Validators.required)
+  });
 
 	@Input() showing: Showing;
 
@@ -37,8 +44,10 @@ export class ShowingDetailComponent implements OnInit {
   }
 
   getShowing() {
-  	const id = this.route.snapshot.paramMap.get('id');
-  	this.cinemaService.getShowing(id)
+  	const id = this.route.snapshot.paramMap.get('showingId');
+    const cinemaName = this.route.snapshot.paramMap.get('name');
+    const roomId = this.route.snapshot.paramMap.get('roomId');
+  	this.cinemaService.getShowing(id, cinemaName, roomId)
   		.subscribe((showing) => {
   			this.showing = showing;
   		})

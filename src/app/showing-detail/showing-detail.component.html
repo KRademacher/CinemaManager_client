@@ -1,21 +1,21 @@
 <div *ngIf="showing">
-	<form>
+	<form [formGroup]="showingForm">
 		<h3>{{showing.movieTitle}} details:</h3>
 		<div class="form-group">
 			<h5>Title:</h5>
-			<input class="form-control" name="title" [(ngModel)]="showing.movieTitle" placeholder="Title">
+			<input class="form-control" name="title" [(ngModel)]="showing.movieTitle" formControlName="movieTitle" placeholder="Title">
 		</div>
 		<div class="form-group">
 			<h5>Duration in minutes:</h5>
-			<input class="form-control" type="number" name="duration" [(ngModel)]="showing.duration" placeholder="Duration">
+			<input class="form-control" type="number" name="duration" [(ngModel)]="showing.duration" formControlName="duration" placeholder="Duration">
 		</div>
 		<div class="form-group">
 			<h5>Start date:</h5>
-			<input class="form-control" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" [min]="minDate" name="startDate" [(ngModel)]="showing.startDate" placeholder="Start">
+			<input class="form-control" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" [min]="minDate" name="startDate" [(ngModel)]="showing.startDate" formControlName="startDate" placeholder="Start">
 			<owl-date-time #dt1></owl-date-time>
 		</div>
 		<div class="form-group">
-			<button class="btn btn-primary btn-space" (click)="updateShowing()">Save changes</button>
+			<button class="btn btn-primary btn-space" [disabled]="!showingForm.valid" (click)="updateShowing()">Save changes</button>
 			<button class="btn btn-space" (click)="goBack()">Back</button>
 			<button class="btn btn-space" (click)="deleteShowing()">Delete Showing</button>
 		</div>

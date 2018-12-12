@@ -37,9 +37,7 @@ export class LoginComponent implements OnInit {
   	this.userService.login(user)
   		.subscribe((result) => {
         localStorage.setItem('token', result);
-  			//this.jwtService.setToken(result).then(() => {
-          this.router.navigate(['/cinemas']);
-        //});
+        this.router.navigate(['/cinemas']);
   		}, error => {
   			this.message = JSON.stringify(error.error.Message).replace(/["]+/g, ''); //remove double quotes
   		});

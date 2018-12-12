@@ -1,9 +1,16 @@
 <div *ngIf="cinema">
-	<form>
+	<form [formGroup]="cinemaForm">
 		<div class="form-group">
 			<h3>{{cinema.name}} Details:</h3>
 			<h4>Name: </h4>
-			<input class="form-control" name="name" [(ngModel)]="cinema.name" placeholder="Name">
+			<input class="form-control" name="name" [(ngModel)]="cinema.name" formControlName="name" placeholder="Name">
+		</div>
+		<div class="form-group">
+			<button class="btn btn-primary btn-space" [disabled]="!cinemaForm.valid" (click)="updateCinema()">Save name</button>
+			<button class="btn btn-dark btn-space" (click)="goBack()">Back</button>
+			<button class="btn btn-primary btn-space" (click)="addRoom()">Add room</button>
+			<button class="btn btn-dark btn-space" (click)=showAllShowings()>Show all showings</button>
+			<button class="btn btn-danger btn-space" (click)="deleteCinema()">Delete cinema</button>
 		</div>
 		<div *ngIf="cinema.rooms.length > 0">
 			<div class="form-group">
@@ -18,10 +25,8 @@
 					    	<p>Showings:</p>
 					    	<div *ngFor="let showing of room.showings">
 					    		<a (click)="showMovieList(showing.movieTitle)" class="list-group-item list-group-item-action align-items-start">
-					    			<small>Title: {{showing.movieTitle}}</small><br/>
-						    		<small>Start: {{showing.startDate | date:'dd-MM-yyyy HH:mm'}}</small><br/>
-						    		<small>Duration: {{showing.duration}} minutes</small><br/>
-						    		<small>End: {{showing.endDate | date:'dd-MM-yyyy HH:mm'}}</small><br/>
+					    			<small>{{showing.movieTitle}} {{showing.startDate | date:'dd-MM-yyyy'}}</small><br/>
+						    		<small>{{showing.startDate | date: 'HH:mm'}} - {{showing.endDate | date:'HH:mm'}}</small><br/>
 					    		</a>
 					    	</div>
 					    </div>
@@ -29,13 +34,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<button class="btn btn-primary btn-space" (click)="updateCinema()">Save name</button>
-			<button class="btn btn-dark btn-space" (click)="goBack()">Back</button>
-			<button class="btn btn-primary btn-space" (click)="addRoom()">Add room</button>
-			<button class="btn btn-dark btn-space" (click)=showAllShowings()>Show all showings</button>
-			<button class="btn btn-danger btn-space" (click)="deleteCinema()">Delete cinema</button>
 		</div>
 	</form>
 </div>

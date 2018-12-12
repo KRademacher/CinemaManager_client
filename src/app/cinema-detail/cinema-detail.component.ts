@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -11,6 +12,10 @@ import { CinemaService } from '../cinema.service';
   styleUrls: ['./cinema-detail.component.css']
 })
 export class CinemaDetailComponent implements OnInit {
+
+  cinemaForm = new FormGroup({
+    name: new FormControl('', Validators.required)
+  });
 
 	@Input() cinema: Cinema;
 
@@ -30,8 +35,8 @@ export class CinemaDetailComponent implements OnInit {
   }
 
   getCinema() { //Get requested Cinema.
-  	const id = this.route.snapshot.paramMap.get('id');
-		this.cinemaService.getCinema(id)
+  	const name = this.route.snapshot.paramMap.get('name');
+		this.cinemaService.getCinema(name)
 			.subscribe(cinema => {
         this.cinema = cinema;
         this.cinemaService.setCinemaId(cinema._id);
@@ -53,19 +58,19 @@ export class CinemaDetailComponent implements OnInit {
   }
 
   addRoom() { //Navigate to room-add component.
-    this.router.navigate(['/rooms/create']);
+    this.router.navigate([`/cinemas/${this.cinema.name}/createRoom`]);
   }
 
   editRoom(id: string) { //Navigate to room-detail component
-    this.router.navigate(['/room/' + id]);
+    this.router.navigate([`/cinemas/${this.cinema.name}/${id}`]);
   }
 
   showMovieList(title: string) { //Navigate to showing-list component.
-    this.router.navigate(['/showings/' + title]);
+    this.router.navigate([`/cinemas/${this.cinema.name}/showings/${title}`]);
   }
 
   showAllShowings() { //Navigate to showing-all component
-    this.router.navigate(['/showings']);
+    this.router.navigate([`/cinemas/${this.cinema.name}/showings`]);
   }
 
   goBack() {

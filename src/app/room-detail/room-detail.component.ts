@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -14,7 +15,13 @@ export class RoomDetailComponent implements OnInit {
 
 	@Input() room: Room;
 
-	@Input() roomTypes = ['Standard', '3D', 'IMAX', 'IMAX 3D'];
+  private roomForm = new FormGroup({
+    number: new FormControl('', Validators.required),
+    type: new FormControl('', Validators.required),
+    capacity: new FormControl('', Validators.required)
+  });
+
+	private roomTypes = ['Standard', '3D', 'IMAX', 'IMAX 3D'];
 
   constructor(
   	private cinemaService: CinemaService, 
@@ -32,8 +39,9 @@ export class RoomDetailComponent implements OnInit {
   }
 
   getRoom() {
-  	const id = this.route.snapshot.paramMap.get('id');
-  	this.cinemaService.getRoom(id)
+  	const id = this.route.snapshot.paramMap.get('roomId');
+    const name = this.route.snapshot.paramMap.get('name');
+  	this.cinemaService.getRoom(id, name)
   		.subscribe((room) => {
         this.room = room;
         this.cinemaService.setRoomId(room._id);
@@ -55,11 +63,13 @@ export class RoomDetailComponent implements OnInit {
   }
 
   addShowing() {
-    this.router.navigate(['/showings/create']);
+    const name = this.route.snapshot.paramMap.get('name');
+    this.router.navigate([`/cinemas/${name}/${this.room._id}/addShowing`], { relativeTo: this.route });
   }
 
   editShowing(id: string) {
-    this.router.navigate(['/showing/' + id]);
+    const name = this.route.snapshot.paramMap.get('name');
+    this.router.navigate([`/cinemas/${name}/${this.room._id}/${id}`], { relativeTo: this.route });
   }
 
   goBack() {

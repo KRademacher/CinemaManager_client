@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -14,7 +15,13 @@ export class RoomAddComponent implements OnInit {
 
 	@Input() room: Room = new Room();
 
-	@Input() roomTypes = ['Standard', '3D', 'IMAX', 'IMAX 3D'];
+  private roomForm = new FormGroup({
+    number: new FormControl('', Validators.required),
+    type: new FormControl('', Validators.required),
+    capacity: new FormControl('', Validators.required)
+  });
+
+	private roomTypes = ['Standard', '3D', 'IMAX', 'IMAX 3D'];
 
   constructor(
   	private router: Router,

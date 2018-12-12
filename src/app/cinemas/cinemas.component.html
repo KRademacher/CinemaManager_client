@@ -9,7 +9,7 @@
 			<div class="form-group">
 				<div *ngFor="let cinema of cinemas">
 					<div>
-						<a (click)="editCinema(cinema._id)" class="list-group-item list-group-item-action">
+						<a (click)="editCinema(cinema.name)" class="list-group-item list-group-item-action">
 							<label>{{cinema.name}}</label>
 						</a>
 					</div>

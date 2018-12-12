@@ -17,15 +17,27 @@ const routes: Routes = [
 	{ path: '', redirectTo: '/login', pathMatch: 'full' },
 	{ path: 'login', component: LoginComponent },
 	{ path: 'register', component: RegisterComponent },
-	{ path: 'cinemas', component: CinemasComponent },
-	{ path: 'cinema/:id', component: CinemaDetailComponent },
-	{ path: 'cinemas/create', component: CinemaAddComponent },
-	{ path: 'room/:id', component: RoomDetailComponent },
-	{ path: 'rooms/create', component: RoomAddComponent },
-	{ path: 'showings/create', component: ShowingAddComponent },
-	{ path: 'showing/:id', component: ShowingDetailComponent },
-	{ path: 'showings/:title', component: ShowingListComponent },
-	{ path: 'showings', component: ShowingAllComponent }
+	{ path: 'cinemas', 
+		children: [
+			{ path: '', component: CinemasComponent },
+			{ path: 'create', component: CinemaAddComponent },
+			{ path: ':name', 
+					children: [
+						{ path: '', component: CinemaDetailComponent },
+						{ path: 'createRoom', component: RoomAddComponent },
+						{ path: 'showings', 
+							children: [
+								{ path: '', component: ShowingAllComponent },
+								{ path: ':title', component: ShowingListComponent }
+							]},
+						{ path: ':roomId', 
+							children: [
+								{ path: '', component: RoomDetailComponent },
+								{ path: 'addShowing', component: ShowingAddComponent },
+								{ path: ':showingId', component: ShowingDetailComponent }
+							]},
+					]},
+		]},
 ];
 
 @NgModule({

@@ -1,21 +1,21 @@
  <div>	
-	<form>
+	<form [formGroup]="roomForm">
 		<div class="form-group">
 			<label>Room number:</label>
-			<input class="form-control" name="number" [(ngModel)]="room.number" placeholder="number">
+			<input class="form-control" name="number" [(ngModel)]="room.number" formControlName="number" placeholder="Number">
 		</div>
 		<div class="form-group">
 			<label>Room type:</label>
-			<select class="form-control" [(ngModel)]="room.type" name="type">
+			<select class="form-control" [(ngModel)]="room.type" formControlName="type" name="type">
 				<option *ngFor="let item of roomTypes" [value]= item>{{item}}</option>
 			</select>
 		</div>
 		<div class="form-group">
 			<label>Capacity:</label>
-			<input class="form-control" [(ngModel)]="room.capacity" placeholder="capacity" name="capacity">
+			<input class="form-control" [(ngModel)]="room.capacity" formControlName="capacity" placeholder="Capacity" name="capacity">
 		</div>
 		<div class="form-group">
-			<button class="btn btn-primary btn-space" (click)="createRoom()">Add Room</button>
+			<button class="btn btn-primary btn-space" [disabled]="!roomForm.valid" (click)="createRoom()">Add Room</button>
 			<button class="btn" (click)="goBack()">Cancel</button>
 		</div>
 	</form>

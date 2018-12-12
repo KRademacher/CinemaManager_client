@@ -29,8 +29,8 @@ export class ShowingAllComponent implements OnInit {
   }
 
   getShowings() {
-  	console.log('getShowings component');	
-  	this.cinemaService.getShowings()
+    const cinemaName = this.route.snapshot.paramMap.get('name');
+  	this.cinemaService.getShowings(cinemaName)
   		.subscribe((result) => this.showings = result);
   }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -13,6 +14,12 @@ import { CinemaService } from '../cinema.service';
   styleUrls: ['./showing-add.component.css']
 })
 export class ShowingAddComponent implements OnInit {
+
+  showingForm = new FormGroup({
+    movieTitle: new FormControl('', Validators.required),
+    duration: new FormControl('', Validators.required),
+    startDate: new FormControl('', Validators.required)
+  });
 
 	@Input() showing: Showing = new Showing();
 

@@ -9,6 +9,7 @@ import { User } from './classes/user';
 export class UserService {
 
   private url = 'https://cinemamanagerserver.herokuapp.com/api';
+  //private url = 'http://localhost:3000/api';
 
 	private httpOptions = {
 		headers: new HttpHeaders({

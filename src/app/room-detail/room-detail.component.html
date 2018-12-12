@@ -1,19 +1,25 @@
 <div *ngIf="room">
-	<form>
+	<form [formGroup]="roomForm">
 		<div class="form-group">
 			<h3>Room details:</h3>
 			<h5>Room number:</h5>
-			<input class="form-control" type="number" [(ngModel)]="room.number" placeholder="Number" name="number">
+			<input class="form-control" type="number" [(ngModel)]="room.number" formControlName="number" placeholder="Number" name="number">
 		</div>
 		<div class="form-group">
 			<h5>Type:</h5>
-			<select class="form-control" [(ngModel)]="room.type" name="type">
+			<select class="form-control" [(ngModel)]="room.type" formControlName="type" name="type">
 				<option *ngFor="let item of roomTypes" [value]= item>{{item}}</option>
 			</select>
 		</div>
 		<div class="form-group">
 			<h5>Capacity:</h5>
-			<input class="form-control" type="number" [(ngModel)]="room.capacity" placeholder="Capacity" name="capacity">
+			<input class="form-control" type="number" [(ngModel)]="room.capacity" formControlName="capacity" placeholder="Capacity" name="capacity">
+		</div>
+		<div class="form-group">
+			<button class="btn btn-primary btn-space" [disabled]="!roomForm.valid" (click)="updateRoom()">Save changes</button>
+			<button class="btn btn-dark btn-space" (click)="goBack()">Back</button>
+			<button class="btn btn-primary btn-space" (click)="addShowing()">Add a Showing</button>
+			<button class="btn btn-danger" (click)="deleteRoom()">Delete Room</button>
 		</div>
 		<div *ngIf="room.showings.length > 0">
 			<div class="form-group">
@@ -29,12 +35,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<button class="btn btn-primary btn-space" (click)="updateRoom()">Save changes</button>
-			<button class="btn btn-dark btn-space" (click)="goBack()">Back</button>
-			<button class="btn btn-primary btn-space" (click)="addShowing()">Add a Showing</button>
-			<button class="btn btn-danger" (click)="deleteRoom()">Delete Room</button>
 		</div>
 	</form>	
 </div>

@@ -22,18 +22,18 @@ export class ShowingListComponent implements OnInit {
 	) { }
 
 	title = this.route.snapshot.paramMap.get('title');
+  cinemaName = this.route.snapshot.paramMap.get('name');
 
   ngOnInit() {
   	if (!localStorage.getItem('token')) {
       this.router.navigate(['/login']);
     } else {
-      this.getShowings();
+      this.getShowingsByName();
     }
   }
 
-  getShowings() {
-  	const title = this.title;
-  	this.cinemaService.getShowingsByName(title)
+  getShowingsByName() {
+  	this.cinemaService.getShowingsByName(this.title, this.cinemaName)
   		.subscribe((rooms) => {
   			this.rooms = rooms;
   		})
