@@ -8,6 +8,8 @@ import { User } from './classes/user';
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
+  private url = 'https://cinemamanagerserver.herokuapp.com/api';
+
 	private httpOptions = {
 		headers: new HttpHeaders({
 			'Content-Type': 'application/json'
@@ -17,8 +19,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   login(user: User): Observable<any>{
-  	return this.http.post<any>('http://localhost:3000/api/login', user, this.httpOptions)
-  		//.pipe(catchError(this.handleError<any>('login')));
+  	return this.http.post<any>(`${this.url}/login`, user, this.httpOptions)
   		.pipe(
   			tap((response) => {
   				if (response.status == 200) {
@@ -31,7 +32,7 @@ export class UserService {
   }
 
   register(user: User): Observable<any> {
-  	return this.http.post<any>('http://localhost:3000/api/register', user, this.httpOptions)
+  	return this.http.post<any>(`${this.url}/register`, user, this.httpOptions)
   		.pipe(
   			tap((response) => {
   				if (response.status == 200) {
@@ -42,18 +43,4 @@ export class UserService {
   			})
 			);
   }
-
-  // private handleError<T>(operation = 'operation', result?: T) {
-  // 	return (error: any): Observable<T> => {
-  // 		if (error.name === 'HttpErrorResponse') {
-  // 			console.error(error.error.Message);
-  // 			return error.error.Message;
-  // 		} else {
-  // 			console.error(error);
-  // 		}
-
-  // 		//Lets the app keep running by returning an empty result.
-  // 		return of(result as T);
-  // 	};
-  // }
 }
